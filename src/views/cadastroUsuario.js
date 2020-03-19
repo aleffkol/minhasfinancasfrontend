@@ -1,6 +1,7 @@
 import React from 'react'
 import Card from '../components/card'
 import FormGroup from '../components/form-group'
+import {withRouter} from 'react-router-dom'
 
 class CadastroUsuario extends React.Component{
     state = {
@@ -9,6 +10,10 @@ class CadastroUsuario extends React.Component{
         senhaRepeticao:'',
         email:''
         
+    }
+
+    prepararLogin = ()=>{
+        this.props.history.push('/login')
     }
 
     cadastrar = () =>{
@@ -60,7 +65,7 @@ class CadastroUsuario extends React.Component{
                                 </FormGroup>
 
                                 <button type ="button" className="btn btn-success" onClick={this.cadastrar}>Salvar</button>
-                                <button type ="button" className="btn btn-danger">Cancelar</button>
+                                <button type ="button" className="btn btn-danger" onClick={this.prepararLogin}>Cancelar</button>
                             </div>
                         </div>    
                     </div>
@@ -70,4 +75,4 @@ class CadastroUsuario extends React.Component{
     }
 }
 
-export default CadastroUsuario
+export default withRouter(CadastroUsuario)

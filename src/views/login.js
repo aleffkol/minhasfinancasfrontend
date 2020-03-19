@@ -1,6 +1,8 @@
 import React from 'react';
 import Card from '../components/card';
 import FormGroup from '../components/form-group';
+import axios from 'axios'
+import { withRouter } from 'react-router-dom'
 class Login extends React.Component{
 
     state = {
@@ -9,8 +11,23 @@ class Login extends React.Component{
     }
 
     entrar = () =>{
-        console.log(this.state.email)
-        console.log(this.state.senha)
+        axios
+        .post('http://localhost:8080/api/usuarios/autenticar',{
+            email: this.state.email,
+            senha: this.state.senha
+        }).then(response =>{
+          console.log(response)  
+        }).catch(erro => {
+            console.log(erro.response)
+        })
+    }
+
+    prepararCadastro = () =>{
+        this.props.history.push('/cadastro-usuarios')
+    }
+
+    prepararHome = ()=>{
+
     }
 
 
@@ -44,7 +61,7 @@ class Login extends React.Component{
                                                     placeholder="Password" />
                                                 </FormGroup>
                                                 <button className="btn btn-success" onClick={this.entrar}>Entrar</button>
-                                                <button className="btn btn-danger">Cadastrar</button>
+                                                <button className="btn btn-danger" onClick={this.prepararCadastro}>Cadastrar</button>
                                             </fieldset>
                                         </div>
                                     </div>
@@ -58,4 +75,4 @@ class Login extends React.Component{
     }
 }
 
-export default Login;
+export default withRouter(Login);
